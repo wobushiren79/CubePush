@@ -5,6 +5,14 @@ public class Launcher : BaseMonoBehaviour
 {
     private void Start()
     {
-        CubeHandler.Instance.CreateRandomCube(3, 3, 3);
+        GameHandler.Instance.ChangeGameState(GameStateEnum.Pre);
+    }
+
+    private void OnGUI()
+    {
+        if (GUILayout.Button("重置"))
+        {
+            GameHandler.Instance.ChangeGameState(GameStateEnum.Pre);
+        }
     }
 }

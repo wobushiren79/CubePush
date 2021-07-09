@@ -19,6 +19,12 @@ public class Cube : BaseMonoBehaviour
 
     public void SetDirection()
     {
+        Vector3 angles = GetDirectionAngle();
+        transform.localEulerAngles = angles;
+    }
+
+    public Vector3 GetDirectionAngle()
+    {
         Vector3 angles = Vector3.zero;
         switch (cubeData.direction)
         {
@@ -41,6 +47,6 @@ public class Cube : BaseMonoBehaviour
                 angles = new Vector3(90, 0, 0);
                 break;
         }
-        transform.localEulerAngles = angles;
+        return angles;
     }
 }
