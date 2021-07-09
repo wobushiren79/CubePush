@@ -45,7 +45,9 @@ public class CubeManager : BaseManager, ISceneInfoView
     {
         for (int i = 0; i < listCube.Count; i++)
         {
-            Destroy(listCube[i].gameObject);
+            Cube itemCube = listCube[i];
+            if (itemCube!=null)
+                Destroy(itemCube.gameObject);
         }
         listCube.Clear();
     }
