@@ -45,10 +45,11 @@ public abstract class BaseDataRead<T>
             LogUtil.Log("读取文件失败-没有文件名称");
             return null;
         }
-        string strData = FileUtil.LoadTextFile(dataStoragePath + "/" + fileName);
-        if (strData == null)
+        TextAsset textAsset = LoadResourcesUtil.SyncLoadData<TextAsset>("JsonText/" + fileName);
+        //string strData = FileUtil.LoadTextFile(dataStoragePath + "/" + fileName);
+        if (textAsset == null || textAsset.text == null)
             return null;
-        List<T> listData = JsonUtil.FromJsonByNet<List<T>>(strData);
+        List<T> listData = JsonUtil.FromJsonByNet<List<T>>(textAsset.text);
         return listData;
     }
 }

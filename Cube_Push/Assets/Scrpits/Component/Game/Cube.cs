@@ -12,6 +12,11 @@ public class Cube : BaseMonoBehaviour
         SetDirection();
     }
 
+    private void OnValidate()
+    {
+        SetDirection();
+    }
+
     public void SetPosition()
     {
         transform.localPosition = cubeData.positionForReal;

@@ -6,6 +6,30 @@ using System;
 
 public class CubeHandler : BaseHandler<CubeHandler, CubeManager>
 {
+    public void CreateCube(SceneInfoBean sceneInfo)
+    {
+        manager.ClearAllCube();
+        SceneInfoDetails sceneInfoDetails = SceneInfoDetails.SetJson(sceneInfo.data);
+        for (int i=0;i< sceneInfoDetails.listData.Count;i++)
+        {
+            SceneInfoItemDetails sceneInfoItemDetails = sceneInfoDetails.listData[i];
+            CubeBean cubeData = new CubeBean();
+            cubeData.positionForMark = Vector3Int.CeilToInt(sceneInfoItemDetails.position.GetVector3()) + Vector3Int.one * 1000;
+            cubeData.positionForReal = sceneInfoItemDetails.position.GetVector3();
+
+            cubeData.positionForMarkInit = cubeData.positionForMark;
+            cubeData.positionForRealInit = cubeData.positionForReal;
+
+            cubeData.direction = (DirectionEnum)sceneInfoItemDetails.direction;
+
+            GameObject objItemCube = Instantiate(manager.containerForCube.gameObject, manager.modelForCube.gameObject);
+            Cube cube = objItemCube.GetComponent<Cube>();
+            cube.SetData(cubeData);
+
+            manager.AddCube(cube);
+        }
+    }
+
     public void CreateRandomCube(int xSize, int ySize, int zSize)
     {
         manager.ClearAllCube();

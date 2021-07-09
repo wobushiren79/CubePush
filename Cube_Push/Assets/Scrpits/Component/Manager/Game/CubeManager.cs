@@ -1,10 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeManager : BaseManager
+public class CubeManager : BaseManager, ISceneInfoView
 {
     public List<Cube> listCube = new List<Cube>();
+    public Dictionary<int, SceneInfoBean> dicSceneInfo = new Dictionary<int, SceneInfoBean>();
+
+    public SceneInfoController sceneInfoController;
+    private void Awake()
+    {
+        InitData();
+    }
+
+    public void InitData()
+    {
+        sceneInfoController = new SceneInfoController(this, this);
+        sceneInfoController.GetAllSceneInfoData(InitSceneInfoData);
+    }
+
+    public void InitSceneInfoData(List<SceneInfoBean> listData)
+    {
+        dicSceneInfo.Clear();
+        for (int i = 0; i < listData.Count; i++)
+        {
+            SceneInfoBean sceneInfo = listData[i];
+            dicSceneInfo.Add(sceneInfo.level, sceneInfo);
+        }
+    }
 
     public void AddCube(Cube cube)
     {
@@ -73,7 +97,7 @@ public class CubeManager : BaseManager
         for (int i = 0; i < listCube.Count; i++)
         {
             Cube itemCube = listCube[i];
-            if (markPosition== itemCube.cubeData.positionForMark)
+            if (markPosition == itemCube.cubeData.positionForMark)
             {
                 return itemCube;
             }
@@ -211,5 +235,15 @@ public class CubeManager : BaseManager
         }
     }
 
+    #region 数据回调
+    public void GetSceneInfoSuccess<T>(T data, Action<T> action)
+    {
+        action?.Invoke(data);
+    }
 
+    public void GetSceneInfoFail(string failMsg, Action action)
+    {
+
+    }
+    #endregion
 }
