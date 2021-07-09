@@ -41,16 +41,26 @@ public class CubeManager : BaseManager, ISceneInfoView
         cube.transform.SetParent(null);
     }
 
-    public void ClearAllCube()
+    public void ClearAllCube(bool isEditor)
     {
         for (int i = 0; i < listCube.Count; i++)
         {
             Cube itemCube = listCube[i];
-            if (itemCube!=null)
-                Destroy(itemCube.gameObject);
+            if (itemCube != null)
+            {
+                if (isEditor)
+                {
+                    DestroyImmediate(itemCube.gameObject);
+                }
+                else
+                {
+                    Destroy(itemCube.gameObject);
+                }
+            }
         }
         listCube.Clear();
     }
+
 
     /// <summary>
     /// 检测四周是否有方块

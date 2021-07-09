@@ -34,7 +34,7 @@ public class SceneEditorWindow : EditorWindow
                 return;
             }
             CubeHandler.Instance.manager.InitData();
-            CubeHandler.Instance.CreateCube(sceneInfo);
+            CubeHandler.Instance.CreateCube(sceneInfo,true);
         }
         GUILayout.EndHorizontal();
 

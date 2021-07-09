@@ -6,9 +6,9 @@ using System;
 
 public class CubeHandler : BaseHandler<CubeHandler, CubeManager>
 {
-    public void CreateCube(SceneInfoBean sceneInfo)
+    public void CreateCube(SceneInfoBean sceneInfo,bool isEditor)
     {
-        manager.ClearAllCube();
+        manager.ClearAllCube(isEditor);
         SceneInfoDetails sceneInfoDetails = SceneInfoDetails.SetJson(sceneInfo.data);
         for (int i=0;i< sceneInfoDetails.listData.Count;i++)
         {
@@ -32,7 +32,7 @@ public class CubeHandler : BaseHandler<CubeHandler, CubeManager>
 
     public void CreateRandomCube(int xSize, int ySize, int zSize)
     {
-        manager.ClearAllCube();
+        manager.ClearAllCube(false);
         for (int x = 0; x < xSize; x++)
         {
             for (int y = 0; y < ySize; y++)
